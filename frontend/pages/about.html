@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>PriceNest - About</title>
+  <link rel="stylesheet" href="../css/style.css"/>
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav class="navbar">
+  <div class="navbar-brand">
+    <span class="logo-icon">🏠</span>
+    <div>
+      <span class="brand-text">PriceNest</span>
+      <span class="tagline">Know your home's true worth.</span>
+    </div>
+  </div>
+  <ul class="nav-links">
+    <li><a href="home.html">🏠 Home</a></li>
+    <li><a href="about.html" class="active">ℹ️ About</a></li>
+    <li id="navPredict" class="hidden"><a href="predict.html">🔮 Predict</a></li>
+    <li id="navHistory" class="hidden"><a href="history.html">📋 History</a></li>
+    <li id="navReport" class="hidden"><a href="report.html">📊 Report</a></li>
+    <li id="navAdmin" class="hidden"><a href="admin.html">🛡️ Admin</a></li>
+  </ul>
+  <div class="nav-user" id="navUser">
+    <div id="navGuest">
+      <a href="auth.html" class="btn btn-outline btn-sm">🔑 Sign In</a>
+      <a href="auth.html?tab=signup" class="btn btn-primary btn-sm">✨ Sign Up</a>
+    </div>
+    <div id="navLoggedIn" class="hidden" style="display:flex;align-items:center;gap:10px;">
+      <span id="navUsername" style="font-size:14px;font-weight:500;color:var(--lavender-700);"></span>
+      <button class="profile-icon-btn" onclick="goToProfile()">👤</button>
+      <button class="btn btn-sm btn-outline" onclick="logout()">🚪 Logout</button>
+    </div>
+  </div>
+</nav>
+
+<!-- ABOUT HERO -->
+<div style="background:linear-gradient(135deg,var(--lavender-500),var(--lavender-700));padding:4rem 2rem;text-align:center;color:white;">
+  <h1 style="font-size:36px;font-weight:800;margin-bottom:10px;">🏠 About PriceNest</h1>
+  <p style="font-size:16px;opacity:0.88;max-width:560px;margin:0 auto;">"Know your home's true worth."</p>
+</div>
+
+<div class="main-content" style="max-width:860px;">
+
+  <!-- About Section -->
+  <div class="card" style="margin-top:32px;">
+    <div class="card-title" style="font-size:20px;">🏠 About PriceNest</div>
+    <p style="font-size:15px;color:var(--gray-700);line-height:1.9;">
+      PriceNest is a smart house price prediction platform designed to make real estate understanding easy and accessible.
+      It uses machine learning techniques to estimate property prices based on key features like location, size, and number of rooms.
+    </p>
+  </div>
+
+  <!-- Mission -->
+  <div class="card" style="margin-top:20px;">
+    <div class="card-title" style="font-size:20px;">📊 Our Mission</div>
+    <p style="font-size:15px;color:var(--gray-700);line-height:1.9;">
+      Our mission is to help users make better property decisions using data-driven insights.
+      We aim to simplify the complexity of real estate pricing through accurate and efficient prediction models.
+    </p>
+  </div>
+
+  <!-- What We Offer -->
+  <div class="card" style="margin-top:20px;">
+    <div class="card-title" style="font-size:20px;">🚀 What We Offer</div>
+    <p style="font-size:15px;color:var(--gray-700);line-height:1.9;">
+      We provide a user-friendly system where users can enter property details and get instant price predictions.
+      The platform also supports multiple models to improve accuracy and reliability.
+    </p>
+
+    <div class="grid-3" style="margin-top:24px;">
+      <div style="text-align:center;padding:20px;background:var(--lavender-100);border-radius:var(--radius);border:1px solid var(--lavender-200);">
+        <div style="font-size:32px;margin-bottom:10px;">🤖</div>
+        <h4 style="color:var(--lavender-700);margin-bottom:6px;">4 ML Models</h4>
+        <p style="font-size:13px;color:var(--gray-500);">Linear Regression, Decision Tree, Random Forest, Gradient Boosting</p>
+      </div>
+      <div style="text-align:center;padding:20px;background:var(--lavender-100);border-radius:var(--radius);border:1px solid var(--lavender-200);">
+        <div style="font-size:32px;margin-bottom:10px;">📊</div>
+        <h4 style="color:var(--lavender-700);margin-bottom:6px;">Instant Reports</h4>
+        <p style="font-size:13px;color:var(--gray-500);">Compare all models and generate detailed reports instantly</p>
+      </div>
+      <div style="text-align:center;padding:20px;background:var(--lavender-100);border-radius:var(--radius);border:1px solid var(--lavender-200);">
+        <div style="font-size:32px;margin-bottom:10px;">💾</div>
+        <h4 style="color:var(--lavender-700);margin-bottom:6px;">MongoDB Storage</h4>
+        <p style="font-size:13px;color:var(--gray-500);">All data stored securely with history tracking</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Tech Stack -->
+  <div class="card" style="margin-top:20px;margin-bottom:40px;">
+    <div class="card-title" style="font-size:20px;">🛠️ Technology Stack</div>
+    <div class="grid-4">
+      <div style="text-align:center;padding:16px;">
+        <div style="font-size:28px;margin-bottom:6px;">🐍</div>
+        <p style="font-weight:600;font-size:13px;color:var(--lavender-700);">Python</p>
+        <p style="font-size:12px;color:var(--gray-500);">Backend & ML</p>
+      </div>
+      <div style="text-align:center;padding:16px;">
+        <div style="font-size:28px;margin-bottom:6px;">🌿</div>
+        <p style="font-weight:600;font-size:13px;color:var(--lavender-700);">MongoDB</p>
+        <p style="font-size:12px;color:var(--gray-500);">Database</p>
+      </div>
+      <div style="text-align:center;padding:16px;">
+        <div style="font-size:28px;margin-bottom:6px;">⚡</div>
+        <p style="font-weight:600;font-size:13px;color:var(--lavender-700);">Flask</p>
+        <p style="font-size:12px;color:var(--gray-500);">API Server</p>
+      </div>
+      <div style="text-align:center;padding:16px;">
+        <div style="font-size:28px;margin-bottom:6px;">🌐</div>
+        <p style="font-weight:600;font-size:13px;color:var(--lavender-700);">HTML/CSS/JS</p>
+        <p style="font-size:12px;color:var(--gray-500);">Frontend</p>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<footer>
+  <p>🏠 <strong>PriceNest</strong> — Know your home's true worth. © 2024</p>
+</footer>
+
+<script src="../js/utils.js"></script>
+<script src="../js/about.js"></script>
+</body>
+</html>

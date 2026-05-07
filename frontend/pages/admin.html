@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>PriceNest - Admin Dashboard</title>
+  <link rel="stylesheet" href="../css/style.css"/>
+</head>
+<body>
+
+<nav class="navbar">
+  <div class="navbar-brand">
+    <span class="logo-icon">🏠</span>
+    <div><span class="brand-text">PriceNest</span><span class="tagline">Admin Panel</span></div>
+  </div>
+  <ul class="nav-links">
+    <li><a href="admin.html" class="active">📊 Dashboard</a></li>
+    <li><a href="home.html">🏠 Site Home</a></li>
+  </ul>
+  <div style="display:flex;align-items:center;gap:10px;">
+    <span id="adminName" style="font-size:14px;font-weight:600;color:var(--lavender-700);">Admin</span>
+    <span class="badge badge-purple">🛡️ Admin</span>
+    <button class="btn btn-sm btn-outline" onclick="logout()">🚪 Logout</button>
+  </div>
+</nav>
+
+<div class="main-content">
+  <div class="page-header">
+    <h1>🛡️ Admin Dashboard</h1>
+    <p>Monitor all users, active sessions, and search activity.</p>
+  </div>
+
+  <div class="grid-4" style="margin-bottom:2rem;">
+    <div class="stat-card"><div class="stat-icon">👥</div><div class="stat-info"><div class="stat-value" id="statTotalUsers">—</div><div class="stat-label">Total Users</div></div></div>
+    <div class="stat-card"><div class="stat-icon">🟢</div><div class="stat-info"><div class="stat-value" id="statActiveUsers">—</div><div class="stat-label">Active Now</div></div></div>
+    <div class="stat-card"><div class="stat-icon">🔍</div><div class="stat-info"><div class="stat-value" id="statTotalSearches">—</div><div class="stat-label">Total Searches</div></div></div>
+    <div class="stat-card"><div class="stat-icon">📅</div><div class="stat-info"><div class="stat-value" id="statDate">—</div><div class="stat-label">Today</div></div></div>
+  </div>
+
+  <div class="grid-2">
+    <div class="card"><div class="card-title">🟢 Currently Active Users</div><div id="activeUsersContainer"><div class="spinner"></div></div></div>
+    <div class="card"><div class="card-title">👥 All Registered Users</div><div id="allUsersContainer"><div class="spinner"></div></div></div>
+  </div>
+
+  <div class="card" style="margin-top:24px;">
+    <div class="card-title">🔍 Recent Search Activity</div>
+    <div id="searchActivityContainer"><div class="spinner"></div></div>
+  </div>
+</div>
+
+<footer><p>🏠 <strong>PriceNest</strong> — Admin Panel © 2024</p></footer>
+<script src="../js/utils.js"></script>
+<script src="../js/admin.js"></script>
+</body>
+</html>

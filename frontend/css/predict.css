@@ -1,0 +1,454 @@
+/* ============================================================
+   PriceNest - Prediction Page Styles
+   ============================================================ */
+
+.predict-layout {
+  display: grid;
+  grid-template-columns: 380px 1fr;
+  gap: 24px;
+  align-items: start;
+}
+
+.predict-form-card {
+  position: sticky;
+  top: 88px;
+}
+
+/* Best Result Card */
+.best-result-card {
+  background: linear-gradient(135deg, var(--lavender-500) 0%, var(--lavender-700) 100%);
+  border-radius: var(--radius-lg);
+  padding: 2rem;
+  text-align: center;
+  color: white;
+  box-shadow: var(--shadow-lg);
+}
+
+.best-label {
+  font-size: 14px;
+  font-weight: 600;
+  opacity: 0.85;
+  margin-bottom: 8px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.best-price {
+  font-size: 42px;
+  font-weight: 800;
+  margin-bottom: 6px;
+  letter-spacing: -1px;
+}
+
+.best-model {
+  font-size: 16px;
+  font-weight: 600;
+  opacity: 0.9;
+  margin-bottom: 12px;
+}
+
+.best-reason {
+  font-size: 13px;
+  opacity: 0.8;
+  line-height: 1.6;
+  max-width: 420px;
+  margin: 0 auto;
+}
+
+/* Model Cards Grid */
+.model-cards-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+  margin-top: 4px;
+}
+
+.model-card {
+  border: 1.5px solid var(--lavender-200);
+  border-radius: var(--radius);
+  padding: 16px;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.model-card.is-best {
+  border-color: var(--lavender-500);
+  background: var(--lavender-100);
+  box-shadow: var(--shadow-sm);
+}
+
+.model-card .model-name {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--lavender-700);
+  margin-bottom: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.model-card .model-price {
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--gray-900);
+  margin-bottom: 10px;
+}
+
+.model-metric {
+  display: flex;
+  justify-content: space-between;
+  font-size: 12px;
+  padding: 4px 0;
+  border-top: 1px solid var(--lavender-200);
+}
+
+.model-metric .metric-label {
+  color: var(--gray-500);
+}
+
+.model-metric .metric-value {
+  font-weight: 600;
+  color: var(--lavender-700);
+}
+
+/* Accuracy Bar */
+.acc-bar-wrap {
+  margin-top: 8px;
+}
+
+.acc-bar-label {
+  display: flex;
+  justify-content: space-between;
+  font-size: 11px;
+  color: var(--gray-500);
+  margin-bottom: 3px;
+}
+
+.acc-bar {
+  height: 6px;
+  background: var(--lavender-200);
+  border-radius: 3px;
+  overflow: hidden;
+}
+
+.acc-bar-fill {
+  height: 100%;
+  background: var(--lavender-500);
+  border-radius: 3px;
+  transition: width 0.8s ease;
+}
+
+/* Best Algorithm Explanation */
+.best-algo-card {
+  margin-top: 20px;
+  border-left: 4px solid var(--lavender-500);
+}
+
+.best-algo-text {
+  font-size: 14px;
+  color: var(--gray-700);
+  line-height: 1.8;
+}
+
+.best-algo-text .algo-fact {
+  background: var(--lavender-100);
+  border-radius: var(--radius-sm);
+  padding: 10px 14px;
+  margin-top: 12px;
+  font-size: 13px;
+  color: var(--lavender-700);
+  border-left: 3px solid var(--lavender-400);
+}
+
+/* ── Area Type Selector (Urban / Semi-Urban / Rural) ─────── */
+/* Overrides the inline styles from predict.html for a polished look */
+#stepAreaType {
+  margin-top: 14px;
+  padding-top: 12px;
+  border-top: 1.5px dashed var(--lavender-200);
+}
+
+#stepAreaType > label {
+  font-size: 12px !important;
+  font-weight: 700 !important;
+  color: var(--lavender-700) !important;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 10px;
+}
+
+.area-badge-row {
+  display: flex;
+  gap: 8px;
+}
+
+.area-badge {
+  flex: 1;
+  padding: 12px 8px 10px;
+  border: 2px solid var(--lavender-200);
+  border-radius: 10px;
+  text-align: center;
+  cursor: pointer;
+  background: white;
+  transition: all 0.2s ease;
+  user-select: none;
+  position: relative;
+  overflow: hidden;
+}
+
+.area-badge::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  transition: opacity 0.2s;
+}
+
+.area-badge[data-type="urban"]::before      { background: linear-gradient(135deg, #ede9fe, #ddd6fe); }
+.area-badge[data-type="semi-urban"]::before  { background: linear-gradient(135deg, #fef3c7, #fde68a); }
+.area-badge[data-type="rural"]::before       { background: linear-gradient(135deg, #d1fae5, #a7f3d0); }
+
+.area-badge:hover::before,
+.area-badge.selected::before { opacity: 1; }
+
+.area-badge .badge-icon {
+  font-size: 22px;
+  display: block;
+  margin-bottom: 4px;
+  position: relative;
+  z-index: 1;
+  transition: transform 0.2s;
+}
+
+.area-badge:hover .badge-icon,
+.area-badge.selected .badge-icon { transform: scale(1.15); }
+
+.area-badge span:not(.badge-icon):not(.badge-lbl) {
+  font-size: 11px;
+  font-weight: 700;
+  display: block;
+  color: var(--gray-700);
+  position: relative;
+  z-index: 1;
+}
+
+.area-badge .badge-lbl {
+  font-size: 9.5px;
+  color: var(--gray-400);
+  display: block;
+  margin-top: 2px;
+  position: relative;
+  z-index: 1;
+}
+
+.area-badge.selected {
+  border-width: 2px;
+  box-shadow: 0 4px 12px rgba(139, 92, 246, 0.18);
+}
+
+.area-badge[data-type="urban"].selected      { border-color: var(--lavender-500); }
+.area-badge[data-type="semi-urban"].selected  { border-color: #d97706; }
+.area-badge[data-type="rural"].selected       { border-color: #059669; }
+
+.area-badge.selected span:not(.badge-icon):not(.badge-lbl) {
+  color: var(--gray-900);
+  font-weight: 800;
+}
+
+/* Prompt user to pick area type */
+#stepAreaType .area-type-prompt {
+  font-size: 11px;
+  color: var(--lavender-500);
+  font-weight: 600;
+  text-align: center;
+  margin-top: 8px;
+  padding: 6px 10px;
+  background: var(--lavender-100);
+  border-radius: 6px;
+  display: none;
+}
+#stepAreaType:not(:has(.area-badge.selected)) .area-type-prompt {
+  display: block;
+}
+
+@media (max-width: 900px) {
+  .predict-layout {
+    grid-template-columns: 1fr;
+  }
+  .predict-form-card {
+    position: static;
+  }
+  .model-cards-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+
+.predict-layout {
+  display: grid;
+  grid-template-columns: 380px 1fr;
+  gap: 24px;
+  align-items: start;
+}
+
+.predict-form-card {
+  position: sticky;
+  top: 88px;
+}
+
+/* Best Result Card */
+.best-result-card {
+  background: linear-gradient(135deg, var(--lavender-500) 0%, var(--lavender-700) 100%);
+  border-radius: var(--radius-lg);
+  padding: 2rem;
+  text-align: center;
+  color: white;
+  box-shadow: var(--shadow-lg);
+}
+
+.best-label {
+  font-size: 14px;
+  font-weight: 600;
+  opacity: 0.85;
+  margin-bottom: 8px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.best-price {
+  font-size: 42px;
+  font-weight: 800;
+  margin-bottom: 6px;
+  letter-spacing: -1px;
+}
+
+.best-model {
+  font-size: 16px;
+  font-weight: 600;
+  opacity: 0.9;
+  margin-bottom: 12px;
+}
+
+.best-reason {
+  font-size: 13px;
+  opacity: 0.8;
+  line-height: 1.6;
+  max-width: 420px;
+  margin: 0 auto;
+}
+
+/* Model Cards Grid */
+.model-cards-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+  margin-top: 4px;
+}
+
+.model-card {
+  border: 1.5px solid var(--lavender-200);
+  border-radius: var(--radius);
+  padding: 16px;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.model-card.is-best {
+  border-color: var(--lavender-500);
+  background: var(--lavender-100);
+  box-shadow: var(--shadow-sm);
+}
+
+.model-card .model-name {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--lavender-700);
+  margin-bottom: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.model-card .model-price {
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--gray-900);
+  margin-bottom: 10px;
+}
+
+.model-metric {
+  display: flex;
+  justify-content: space-between;
+  font-size: 12px;
+  padding: 4px 0;
+  border-top: 1px solid var(--lavender-200);
+}
+
+.model-metric .metric-label {
+  color: var(--gray-500);
+}
+
+.model-metric .metric-value {
+  font-weight: 600;
+  color: var(--lavender-700);
+}
+
+/* Accuracy Bar */
+.acc-bar-wrap {
+  margin-top: 8px;
+}
+
+.acc-bar-label {
+  display: flex;
+  justify-content: space-between;
+  font-size: 11px;
+  color: var(--gray-500);
+  margin-bottom: 3px;
+}
+
+.acc-bar {
+  height: 6px;
+  background: var(--lavender-200);
+  border-radius: 3px;
+  overflow: hidden;
+}
+
+.acc-bar-fill {
+  height: 100%;
+  background: var(--lavender-500);
+  border-radius: 3px;
+  transition: width 0.8s ease;
+}
+
+/* Best Algorithm Explanation */
+.best-algo-card {
+  margin-top: 20px;
+  border-left: 4px solid var(--lavender-500);
+}
+
+.best-algo-text {
+  font-size: 14px;
+  color: var(--gray-700);
+  line-height: 1.8;
+}
+
+.best-algo-text .algo-fact {
+  background: var(--lavender-100);
+  border-radius: var(--radius-sm);
+  padding: 10px 14px;
+  margin-top: 12px;
+  font-size: 13px;
+  color: var(--lavender-700);
+  border-left: 3px solid var(--lavender-400);
+}
+
+@media (max-width: 900px) {
+  .predict-layout {
+    grid-template-columns: 1fr;
+  }
+  .predict-form-card {
+    position: static;
+  }
+  .model-cards-grid {
+    grid-template-columns: 1fr;
+  }
+}

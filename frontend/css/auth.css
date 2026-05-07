@@ -1,0 +1,193 @@
+/* ============================================================
+   PriceNest - Auth Page Styles (Login / Signup)
+   ============================================================ */
+
+.auth-body {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, var(--lavender-100) 0%, var(--lavender-200) 100%);
+  padding: 2rem;
+}
+
+/* Left hero panel */
+.auth-hero {
+  background: linear-gradient(160deg, var(--lavender-500) 0%, var(--lavender-700) 100%);
+  color: white;
+  border-radius: var(--radius-lg) 0 0 var(--radius-lg);
+  padding: 3rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-height: 560px;
+}
+
+.auth-hero .brand {
+  font-size: 30px;
+  font-weight: 700;
+  margin-bottom: 4px;
+}
+
+.auth-hero .tagline {
+  font-size: 14px;
+  opacity: 0.8;
+  margin-bottom: 2.5rem;
+}
+
+.auth-hero h2 {
+  font-size: 22px;
+  font-weight: 600;
+  margin-bottom: 12px;
+}
+
+.auth-hero p {
+  font-size: 14px;
+  opacity: 0.85;
+  line-height: 1.7;
+}
+
+.auth-hero .feature-list {
+  list-style: none;
+  margin-top: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.auth-hero .feature-list li {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 14px;
+  opacity: 0.9;
+}
+
+.auth-hero .feature-list li span.icon {
+  font-size: 18px;
+}
+
+/* Auth wrapper */
+.auth-wrapper {
+  background: white;
+  border-radius: var(--radius-lg);
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  max-width: 900px;
+  width: 100%;
+  box-shadow: var(--shadow-lg);
+  overflow: hidden;
+}
+
+/* Auth form panel */
+.auth-form-panel {
+  padding: 3rem;
+}
+
+.auth-form-panel .form-title {
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--lavender-700);
+  margin-bottom: 4px;
+}
+
+.auth-form-panel .form-subtitle {
+  font-size: 13px;
+  color: var(--gray-500);
+  margin-bottom: 2rem;
+}
+
+/* Role selector */
+.role-selector {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.role-btn {
+  padding: 12px;
+  border: 2px solid var(--lavender-200);
+  border-radius: var(--radius-sm);
+  background: var(--gray-50);
+  cursor: pointer;
+  text-align: center;
+  transition: all 0.2s;
+  font-family: 'Poppins', sans-serif;
+}
+
+.role-btn .role-icon {
+  font-size: 22px;
+  display: block;
+  margin-bottom: 4px;
+}
+
+.role-btn .role-label {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--gray-700);
+  display: block;
+}
+
+.role-btn.selected {
+  border-color: var(--lavender-500);
+  background: var(--lavender-100);
+}
+
+.role-btn.selected .role-label {
+  color: var(--lavender-700);
+}
+
+/* Auth tabs */
+.auth-tabs {
+  display: flex;
+  gap: 0;
+  border-bottom: 2px solid var(--lavender-200);
+  margin-bottom: 1.5rem;
+}
+
+.auth-tab {
+  padding: 10px 20px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  border: none;
+  background: none;
+  color: var(--gray-500);
+  font-family: 'Poppins', sans-serif;
+  border-bottom: 2px solid transparent;
+  margin-bottom: -2px;
+  transition: all 0.2s;
+}
+
+.auth-tab.active {
+  color: var(--lavender-600);
+  border-bottom-color: var(--lavender-500);
+}
+
+.auth-divider {
+  text-align: center;
+  font-size: 13px;
+  color: var(--gray-400);
+  margin: 14px 0;
+  position: relative;
+}
+
+.auth-divider::before,
+.auth-divider::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  width: 40%;
+  height: 1px;
+  background: var(--lavender-200);
+}
+
+.auth-divider::before { left: 0; }
+.auth-divider::after { right: 0; }
+
+@media (max-width: 700px) {
+  .auth-wrapper { grid-template-columns: 1fr; }
+  .auth-hero { border-radius: var(--radius-lg) var(--radius-lg) 0 0; min-height: auto; padding: 2rem; }
+  .auth-form-panel { padding: 2rem 1.5rem; }
+}

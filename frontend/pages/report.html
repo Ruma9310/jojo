@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>PriceNest - Report</title>
+  <link rel="stylesheet" href="../css/style.css"/>
+  <link rel="stylesheet" href="../css/report.css"/>
+</head>
+<body>
+
+<nav class="navbar">
+  <div class="navbar-brand">
+    <span class="logo-icon">🏠</span>
+    <div><span class="brand-text">PriceNest</span><span class="tagline">Know your home's true worth.</span></div>
+  </div>
+  <ul class="nav-links">
+    <li><a href="home.html">🏠 Home</a></li>
+    <li><a href="about.html">ℹ️ About</a></li>
+    <li><a href="predict.html">🔮 Predict</a></li>
+    <li><a href="history.html">📋 History</a></li>
+    <li><a href="report.html" class="active">📊 Report</a></li>
+    <li id="navAdmin" style="display:none;"><a href="admin.html">🛡️ Admin</a></li>
+  </ul>
+  <div style="display:flex;align-items:center;gap:10px;">
+    <span id="navUsername" style="font-size:14px;font-weight:500;color:var(--lavender-700);"></span>
+    <button class="profile-icon-btn" onclick="goToProfile()">👤</button>
+    <button class="btn btn-sm btn-outline" onclick="logout()">🚪 Logout</button>
+  </div>
+</nav>
+
+<div class="main-content">
+  <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;margin-bottom:2rem;">
+    <div>
+      <h1 style="font-size:28px;font-weight:700;color:var(--lavender-700);">📊 Model Performance Report</h1>
+      <p style="color:var(--gray-500);">Comparison of all 4 ML algorithms — see which is best and why.</p>
+    </div>
+    <div style="display:flex;gap:10px;flex-wrap:wrap;">
+      <a href="predict.html" class="btn btn-outline">🔮 New Prediction</a>
+      <button class="btn btn-primary" onclick="window.print()">🖨️ Print / Download PDF</button>
+    </div>
+  </div>
+
+  <!-- Loading -->
+  <div id="reportLoading" style="text-align:center;padding:3rem;">
+    <div class="spinner"></div>
+    <p style="margin-top:12px;color:var(--lavender-600);">Loading model results...</p>
+  </div>
+
+  <!-- Report Content -->
+  <div id="reportContent" style="display:none;">
+
+    <!-- Header -->
+    <div id="currencyBanner" style="display:none;background:linear-gradient(135deg,var(--lavender-500),var(--lavender-700));color:white;border-radius:var(--radius);padding:14px 20px;margin-bottom:20px;font-size:14px;"></div>
+    <div class="report-header-card">
+      <div style="display:flex;align-items:center;gap:16px;">
+        <span style="font-size:48px;">🏠</span>
+        <div>
+          <h2 style="font-size:20px;font-weight:700;color:var(--lavender-700);">PriceNest — ML Model Comparison Report</h2>
+          <p style="color:var(--gray-500);font-size:14px;" id="reportDate"></p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Stat cards -->
+    <div class="grid-4" style="margin-bottom:24px;" id="reportSummary"></div>
+
+    <!-- Accuracy bars -->
+    <div class="card" style="margin-bottom:24px;">
+      <div class="card-title">📈 Accuracy Comparison (All Models)</div>
+      <div id="accuracyBars"></div>
+    </div>
+
+    <!-- Metrics table -->
+    <div class="card" style="margin-bottom:24px;">
+      <div class="card-title">📋 Detailed Metrics Table</div>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>🤖 Algorithm</th>
+              <th>🎯 Accuracy (R²)</th>
+              <th>🎯 Precision</th>
+              <th>📊 F-Score</th>
+              <th>📉 RMSE ($)</th>
+              <th>🏆 Rank</th>
+            </tr>
+          </thead>
+          <tbody id="reportTableBody"></tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Best algo -->
+    <div class="card best-algo-report" style="margin-bottom:24px;">
+      <div class="card-title">🥇 Best Algorithm — Why We Recommend It</div>
+      <div id="bestAlgoReport"></div>
+    </div>
+
+    <!-- ===== LAST USER PREDICTION SECTION ===== -->
+    <div class="card" id="lastPredSection" style="display:none;margin-bottom:24px;border-left:4px solid var(--lavender-500);">
+      <div class="card-title">🔍 Your Last Prediction — All Algorithms Compared</div>
+      <div id="lastPredContent"></div>
+    </div>
+
+    <!-- Algo descriptions -->
+    <div class="card" style="margin-bottom:24px;">
+      <div class="card-title">📚 Algorithm Descriptions</div>
+      <div class="algo-descriptions" id="algoDescriptions"></div>
+    </div>
+
+  </div><!-- /reportContent -->
+</div>
+
+<footer><p>🏠 <strong>PriceNest</strong> — Know your home's true worth. © 2024</p></footer>
+
+<script src="../js/utils.js"></script>
+<script src="../js/report.js"></script>
+</body>
+</html>

@@ -1,0 +1,638 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>PriceNest - Price Prediction</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="../css/style.css"/>
+  <link rel="stylesheet" href="../css/predict.css"/>
+  <style>
+
+    /* ── Location Wizard ───────────────────────────── */
+    .location-wizard {
+      background: linear-gradient(135deg, var(--lavender-100) 0%, #fff 100%);
+      border: 1.5px solid var(--lavender-300);
+      border-radius: var(--radius);
+      padding: 18px;
+      margin-bottom: 18px;
+    }
+    .location-wizard .wizard-title {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--lavender-700);
+      margin-bottom: 14px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    /* Step progress pills */
+    .wizard-steps {
+      display: flex;
+      align-items: center;
+      gap: 0;
+      margin-bottom: 18px;
+      overflow: hidden;
+      border-radius: 8px;
+    }
+    .wizard-step {
+      flex: 1;
+      text-align: center;
+      font-size: 11px;
+      font-weight: 600;
+      padding: 7px 4px;
+      background: var(--lavender-100);
+      color: var(--lavender-400);
+      border: 1px solid var(--lavender-200);
+      transition: all 0.25s;
+      position: relative;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .wizard-step:first-child { border-radius: 8px 0 0 8px; }
+    .wizard-step:last-child  { border-radius: 0 8px 8px 0; }
+    .wizard-step.active {
+      background: var(--lavender-500);
+      color: white;
+      border-color: var(--lavender-500);
+      box-shadow: 0 2px 8px rgba(139,92,246,.3);
+      z-index: 1;
+    }
+    .wizard-step.done {
+      background: #d1fae5;
+      color: #065f46;
+      border-color: #6ee7b7;
+    }
+
+    /* Location selects / inputs */
+    .loc-select {
+      width: 100%;
+      padding: 10px 14px;
+      border: 1.5px solid var(--lavender-200);
+      border-radius: var(--radius-sm);
+      font-family: 'Poppins', sans-serif;
+      font-size: 14px;
+      color: var(--gray-700);
+      background: white;
+      cursor: pointer;
+      outline: none;
+      transition: border-color 0.2s, box-shadow 0.2s;
+      appearance: none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%238b5cf6' stroke-width='2.5'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 12px center;
+      padding-right: 32px;
+    }
+    .loc-select:focus   { border-color: var(--lavender-400); box-shadow: 0 0 0 3px rgba(139,92,246,.12); }
+    .loc-select:disabled { opacity: 0.45; cursor: not-allowed; background-color: #f9f9fb; }
+
+    /* Area type badges */
+    .area-badge-row {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-top: 10px;
+    }
+    .area-badge {
+      flex: 1;
+      min-width: 80px;
+      padding: 8px 10px;
+      border: 2px solid var(--lavender-200);
+      border-radius: var(--radius-sm);
+      text-align: center;
+      cursor: pointer;
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--gray-500);
+      background: white;
+      transition: all 0.2s;
+      user-select: none;
+    }
+    .area-badge:hover       { border-color: var(--lavender-400); color: var(--lavender-600); }
+    .area-badge.selected    { border-color: var(--lavender-500); background: var(--lavender-100); color: var(--lavender-700); box-shadow: 0 0 0 2px rgba(139,92,246,.15); }
+    .area-badge .badge-icon { font-size: 18px; display: block; margin-bottom: 2px; }
+    .area-badge .badge-lbl  { font-size: 10px; }
+
+    /* PIN code row */
+    .pin-row {
+      display: flex;
+      gap: 8px;
+      align-items: flex-end;
+      margin-top: 10px;
+    }
+    .pin-row .form-control { flex: 1; margin-bottom: 0; }
+    .pin-btn {
+      padding: 10px 14px;
+      background: var(--lavender-500);
+      color: white;
+      border: none;
+      border-radius: var(--radius-sm);
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: background 0.2s;
+      font-family: 'Poppins', sans-serif;
+    }
+    .pin-btn:hover { background: var(--lavender-600); }
+
+    /* Location summary chip */
+    .location-chip {
+      display: none;
+      align-items: center;
+      gap: 8px;
+      margin-top: 12px;
+      padding: 10px 14px;
+      background: var(--lavender-100);
+      border: 1.5px solid var(--lavender-300);
+      border-radius: var(--radius-sm);
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--lavender-700);
+      flex-wrap: wrap;
+    }
+    .location-chip .chip-x {
+      margin-left: auto;
+      cursor: pointer;
+      opacity: .6;
+      font-size: 16px;
+      line-height: 1;
+    }
+    .location-chip .chip-x:hover { opacity: 1; }
+
+    /* Inflation section */
+    .inflation-section {
+      background: linear-gradient(135deg, var(--lavender-100), #fff);
+      border: 1.5px solid var(--lavender-300);
+      border-radius: var(--radius);
+      padding: 18px;
+      margin-bottom: 18px;
+    }
+    .inflation-section .section-label {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--lavender-700);
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .inflation-status {
+      margin-top: 10px;
+      padding: 10px 14px;
+      border-radius: var(--radius-sm);
+      font-size: 13px;
+      display: none;
+    }
+    .inflation-status.loading {
+      display: flex; align-items: center; gap: 8px;
+      background: var(--lavender-100); color: var(--lavender-700);
+    }
+    .inflation-status.success {
+      display: flex; align-items: center; gap: 8px;
+      background: #d1fae5; color: #065f46;
+    }
+    .inflation-status.error {
+      display: flex; align-items: center; gap: 8px;
+      background: #fee2e2; color: #991b1b;
+    }
+    .mini-spinner {
+      width:16px; height:16px;
+      border: 2px solid var(--lavender-300);
+      border-top-color: var(--lavender-600);
+      border-radius: 50%;
+      animation: spin 0.6s linear infinite;
+      flex-shrink: 0;
+    }
+
+    /* Inflation adjusted card */
+    .adjusted-price-card {
+      background: linear-gradient(135deg, #10b981, #059669);
+      border-radius: var(--radius-lg);
+      padding: 1.5rem 2rem;
+      color: white;
+      margin-top: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+    .adjusted-price-card .adj-label { font-size:13px; opacity:.85; font-weight:600; text-transform:uppercase; letter-spacing:.5px; }
+    .adjusted-price-card .adj-price  { font-size:32px; font-weight:800; }
+    .adjusted-price-card .adj-info   { font-size:12px; opacity:.8; margin-top:4px; }
+    .inflation-badge {
+      background: rgba(255,255,255,.2);
+      border-radius: 20px;
+      padding: 6px 14px;
+      font-size:13px; font-weight:600; text-align:center;
+    }
+    .inflation-badge .rate { font-size:22px; font-weight:800; display:block; }
+
+    /* Location context banner in results */
+    .location-context-banner {
+      display: none;
+      background: linear-gradient(90deg, var(--lavender-500), #6366f1);
+      color: white;
+      border-radius: var(--radius);
+      padding: 14px 20px;
+      margin-bottom: 16px;
+      font-size: 13px;
+      font-weight: 500;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+    .location-context-banner .lc-item {
+      display: flex; align-items: center; gap: 4px; opacity:.9;
+    }
+    .location-context-banner .lc-sep { opacity:.4; }
+
+    @keyframes spin { to { transform:rotate(360deg); } }
+  </style>
+</head>
+<body>
+
+<nav class="navbar">
+  <div class="navbar-brand">
+    <span class="logo-icon">🏠</span>
+    <div>
+      <span class="brand-text">PriceNest</span>
+      <span class="tagline">Know your home's true worth.</span>
+    </div>
+  </div>
+  <ul class="nav-links">
+    <li><a href="home.html">🏠 Home</a></li>
+    <li><a href="about.html">ℹ️ About</a></li>
+    <li><a href="predict.html" class="active">🔮 Predict</a></li>
+    <li><a href="history.html">📋 History</a></li>
+    <li><a href="report.html">📊 Report</a></li>
+    <li id="navAdmin" style="display:none;"><a href="admin.html">🛡️ Admin</a></li>
+  </ul>
+  <div style="display:flex;align-items:center;gap:10px;">
+    <span id="navUsername" style="font-size:14px;font-weight:500;color:var(--lavender-700);"></span>
+    <button class="profile-icon-btn" onclick="goToProfile()">👤</button>
+    <button class="btn btn-sm btn-outline" onclick="logout()">🚪 Logout</button>
+  </div>
+</nav>
+
+<div class="main-content">
+  <div class="page-header">
+    <h1>🔮 House Price Prediction</h1>
+    <p>Enter property details and your location to get inflation-adjusted price predictions using 4 ML models.</p>
+  </div>
+
+  <div class="predict-layout">
+
+    <!-- ═══════════ LEFT: INPUT FORM ═══════════ -->
+    <div class="card predict-form-card">
+      <div class="card-title">🏠 Property Details</div>
+
+      <div class="form-group">
+        <label>💰 Average Area Income (<span id="incomeCurrencyLabel">$</span>)</label>
+        <input type="number" class="form-control" id="income" placeholder="e.g. 68000"/>
+      </div>
+      <div class="form-group">
+        <label>📅 Average House Age (years)</label>
+        <input type="number" class="form-control" id="houseAge" placeholder="e.g. 6" step="0.1"/>
+      </div>
+      <div class="form-group">
+        <label>🚪 Number of Rooms</label>
+        <input type="number" class="form-control" id="numRooms" placeholder="e.g. 7" min="1" step="1"/>
+      </div>
+      <div class="form-group">
+        <label>🛏️ Number of Bedrooms</label>
+        <input type="number" class="form-control" id="numBedrooms" placeholder="e.g. 3" min="1" step="1"/>
+      </div>
+      <div class="form-group">
+        <label>👥 Area Population</label>
+        <input type="number" class="form-control" id="population" placeholder="e.g. 36000"/>
+      </div>
+
+      <!-- ── NEW: House Size ── -->
+      <div class="form-group">
+        <label>📐 House Size
+          <span style="float:right;font-size:12px;font-weight:400;opacity:0.7">
+            <label style="cursor:pointer;margin:0">
+              <input type="radio" name="sizeUnit" value="sqft" checked onchange="toggleSizeUnit(this.value)" style="margin-right:3px">sqft
+            </label>
+            &nbsp;
+            <label style="cursor:pointer;margin:0">
+              <input type="radio" name="sizeUnit" value="sqm" onchange="toggleSizeUnit(this.value)" style="margin-right:3px">sq m
+            </label>
+          </span>
+        </label>
+        <input type="number" class="form-control" id="houseSize" placeholder="e.g. 1200" min="100" step="10"/>
+        <small style="opacity:0.6;font-size:11px" id="houseSizeHint">Enter built-up area in square feet</small>
+      </div>
+
+      <!-- ── NEW: Property Type ── -->
+      <div class="form-group">
+        <label>🏗️ Property Type</label>
+        <select class="form-control" id="propertyType">
+          <option value="apartment">🏢 Apartment / Flat</option>
+          <option value="house" selected>🏠 Independent House</option>
+          <option value="villa">🏡 Villa / Bungalow</option>
+          <option value="plot">🌱 Plot / Land</option>
+        </select>
+      </div>
+
+      <!-- ══════ LOCATION WIZARD ══════ -->
+      <div class="location-wizard">
+        <div class="wizard-title">📍 Property Location</div>
+
+        <!-- Step pills -->
+        <div class="wizard-steps">
+          <div class="wizard-step active" id="stepPill1">1 Country</div>
+          <div class="wizard-step"        id="stepPill2">2 State</div>
+          <div class="wizard-step"        id="stepPill3">3 City</div>
+          <div class="wizard-step"        id="stepPill4">4 Area Type</div>
+        </div>
+
+        <!-- Step 1: Country -->
+        <div class="form-group" id="stepCountry">
+          <label style="font-size:12px;">🌍 Select Country</label>
+          <select class="loc-select" id="countrySelect" onchange="onCountryChange()">
+            <option value="">-- Choose Country --</option>
+          </select>
+        </div>
+
+        <!-- Step 2: State/Province (hidden until country chosen) -->
+        <div class="form-group" id="stepState" style="display:none;">
+          <label style="font-size:12px;">🗺️ Select State / Province / Region</label>
+          <select class="loc-select" id="stateSelect" onchange="onStateChange()" disabled>
+            <option value="">-- Choose State --</option>
+          </select>
+        </div>
+
+        <!-- Step 3: City/Town — two input modes -->
+        <div id="stepCity" style="display:none;">
+          <!-- Toggle: Dropdown vs PIN -->
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;">
+            <label style="font-size:12px;">🏙️ City / Town</label>
+            <div style="display:flex;gap:0;border:1.5px solid var(--lavender-300);border-radius:6px;overflow:hidden;">
+              <button id="modeDropBtn" onclick="setCityMode('drop')"
+                style="padding:4px 10px;font-size:11px;font-weight:600;border:none;cursor:pointer;
+                       background:var(--lavender-500);color:white;font-family:'Poppins',sans-serif;transition:all .2s;">
+                📋 List
+              </button>
+              <button id="modePinBtn" onclick="setCityMode('pin')"
+                style="padding:4px 10px;font-size:11px;font-weight:600;border:none;cursor:pointer;
+                       background:white;color:var(--lavender-500);font-family:'Poppins',sans-serif;transition:all .2s;">
+                📮 PIN
+              </button>
+            </div>
+          </div>
+
+          <!-- Dropdown mode -->
+          <div id="cityDropMode">
+            <select class="loc-select" id="citySelect" onchange="onCityChange()" disabled>
+              <option value="">-- Choose City / Town --</option>
+            </select>
+          </div>
+
+          <!-- PIN code mode -->
+          <div id="cityPinMode" style="display:none;">
+            <div class="pin-row">
+              <input type="text" class="form-control" id="pinInput"
+                placeholder="Enter PIN / ZIP / Postal code…"
+                oninput="onPinInput(this.value)"/>
+              <button class="pin-btn" onclick="lookupPin()">🔍 Find</button>
+            </div>
+            <div id="pinResult" style="margin-top:8px;font-size:12px;display:none;
+              padding:8px 12px;background:#d1fae5;border-radius:6px;color:#065f46;font-weight:600;"></div>
+            <div id="pinError" style="margin-top:8px;font-size:12px;display:none;
+              padding:8px 12px;background:#fee2e2;border-radius:6px;color:#991b1b;"></div>
+            <!-- Fuzzy matches list -->
+            <div id="pinMatches" style="margin-top:8px;display:none;"></div>
+          </div>
+        </div>
+
+        <!-- Step 4: Area Type (auto-set from city, but user can override) -->
+        <div id="stepAreaType" style="display:none;margin-top:12px;">
+          <label style="font-size:12px;color:var(--gray-600);font-weight:600;">
+            🏗️ Area Type
+            <span style="font-weight:400;color:var(--gray-400);font-size:11px;"> — auto-detected, you can change</span>
+          </label>
+          <div class="area-badge-row" id="areaBadges">
+            <div class="area-badge" data-type="urban"      onclick="selectAreaType('urban')">
+              <span class="badge-icon">🏙️</span>
+              <span>Urban</span>
+              <span class="badge-lbl">City centre</span>
+            </div>
+            <div class="area-badge" data-type="semi-urban" onclick="selectAreaType('semi-urban')">
+              <span class="badge-icon">🏘️</span>
+              <span>Semi-Urban</span>
+              <span class="badge-lbl">Suburbs / towns</span>
+            </div>
+            <div class="area-badge" data-type="rural"      onclick="selectAreaType('rural')">
+              <span class="badge-icon">🌾</span>
+              <span>Rural</span>
+              <span class="badge-lbl">Village / countryside</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Location summary chip (shows when all 4 steps done) -->
+        <div class="location-chip" id="locationChip">
+          <span id="chipText">📍 …</span>
+          <span class="chip-x" onclick="resetLocation()" title="Clear location">✕</span>
+        </div>
+
+        <!-- Neighbourhood input (shown dynamically when city has neighbourhoods) -->
+        <div id="neighbourhoodGroup" style="display:none;margin-top:12px;padding-top:12px;border-top:1.5px dashed var(--lavender-200);">
+          <label style="font-size:12px;font-weight:700;color:var(--lavender-700);display:flex;align-items:center;gap:5px;margin-bottom:6px;">
+            🏘️ Neighbourhood / Area
+            <span style="font-weight:400;color:var(--gray-400);font-size:11px;">— optional, improves accuracy</span>
+          </label>
+          <input
+            type="text"
+            class="form-control"
+            id="neighbourhood"
+            placeholder="e.g. Rohini, Patel Nagar, Defence Colony…"
+            list="neighbourhoodList"
+            autocomplete="off"
+            style="font-size:13px;"
+          />
+          <datalist id="neighbourhoodList"></datalist>
+          <div id="neighbourhoodHint" style="font-size:11px;color:var(--lavender-500);margin-top:4px;font-weight:500;"></div>
+        </div>
+      </div>
+      <!-- END LOCATION WIZARD -->
+
+      <!-- ══════ INFLATION SECTION (auto-populated from country) ══════ -->
+      <div class="inflation-section">
+        <div class="section-label">📊 Inflation Rate</div>
+
+        <div class="inflation-status loading" id="inflationLoading">
+          <div class="mini-spinner"></div>
+          <span>Fetching live inflation rate…</span>
+        </div>
+        <div class="inflation-status success" id="inflationSuccess">
+          <span>✅</span>
+          <span id="inflationSuccessMsg"></span>
+        </div>
+        <div class="inflation-status error" id="inflationError">
+          <span>⚠️</span>
+          <span id="inflationErrorMsg"></span>
+        </div>
+
+        <!-- Manual override -->
+        <div style="margin-top:8px;">
+          <label style="font-size:12px;color:var(--gray-500);">Override / enter manually (%):</label>
+          <input type="number" class="form-control" id="manualInflation"
+            placeholder="e.g. 5.5" step="0.1" min="0" max="100"
+            style="margin-top:4px;"
+            oninput="onManualInflationInput()"/>
+        </div>
+      </div>
+
+      <div class="alert alert-error" id="predictAlert" style="display:none;">
+        <span id="predictAlertMsg"></span>
+      </div>
+
+      <button class="btn btn-primary btn-lg" style="width:100%;margin-top:8px;" onclick="runPrediction()">
+        🔮 Predict Price
+      </button>
+    </div>
+    <!-- END LEFT PANEL -->
+
+    <!-- ═══════════ RIGHT: RESULTS ═══════════ -->
+    <div style="flex:1;min-width:0;">
+
+      <!-- Mock notice (shown when backend is offline) -->
+      <div id="mockNotice" style="display:none;align-items:center;gap:10px;
+           background:linear-gradient(90deg,#fef3c7,#fde68a);
+           border:1.5px solid #f59e0b;border-radius:10px;
+           padding:12px 16px;margin-bottom:14px;font-size:13px;color:#92400e;font-weight:500;">
+        <span style="font-size:18px;">⚡</span>
+        <span><strong>Live preview mode</strong> — Python backend offline.
+        Showing browser-side ML estimates. Run
+        <code style="background:rgba(0,0,0,.08);padding:2px 6px;border-radius:4px;">python app.py</code>
+        for full model accuracy.</span>
+      </div>
+
+      <!-- Loading spinner -->
+      <div id="loadingPanel" style="display:none;align-items:center;justify-content:center;padding:4rem;">
+        <div style="text-align:center;">
+          <div class="spinner"></div>
+          <p style="color:var(--lavender-600);font-weight:500;margin-top:16px;">Running all 4 ML models…</p>
+        </div>
+      </div>
+
+      <!-- Results -->
+      <div id="resultsPanel" style="display:none;">
+
+        <!-- Location context banner -->
+        <div class="location-context-banner" id="locationBanner">
+          <span>📍</span>
+          <span class="lc-item" id="bannerCountry"></span>
+          <span class="lc-sep">›</span>
+          <span class="lc-item" id="bannerState"></span>
+          <span class="lc-sep">›</span>
+          <span class="lc-item" id="bannerCity"></span>
+          <span class="lc-sep">·</span>
+          <span class="lc-item" id="bannerAreaType"></span>
+        </div>
+
+        <!-- Best price card -->
+        <div class="best-result-card">
+          <div class="best-label">🏆 Best ML Predicted Price (Base)</div>
+          <div class="best-price" id="bestPrice">$0</div>
+          <div class="best-model" id="bestModelLabel">by Model</div>
+          <p class="best-reason" id="bestReason"></p>
+          <div id="countryTag" style="display:none;margin-top:8px;font-size:12px;background:rgba(255,255,255,0.15);border-radius:20px;padding:4px 14px;color:white;"></div>
+          <div id="locMultiBadge" style="display:none;text-align:center;margin-top:6px;"></div>
+          <div style="display:flex;gap:12px;justify-content:center;margin-top:16px;flex-wrap:wrap;">
+            <a href="report.html" class="btn" style="background:rgba(255,255,255,.2);color:white;border:2px solid rgba(255,255,255,.5);">📊 Generate Report</a>
+            <a href="history.html" class="btn" style="background:rgba(255,255,255,.15);color:white;border:2px solid rgba(255,255,255,.4);">📋 View History</a>
+          </div>
+        </div>
+
+        <!-- Inflation adjusted -->
+        <div id="inflationAdjustedCard" style="display:none;">
+          <div class="adjusted-price-card">
+            <div>
+              <div class="adj-label">🌍 Inflation-Adjusted Price</div>
+              <div class="adj-price" id="adjustedPrice">$0</div>
+              <div class="adj-info"  id="adjustedInfo">Based on inflation rate</div>
+            </div>
+            <div class="inflation-badge">
+              <span class="rate" id="inflationRateDisplay">0%</span>
+              <span>Inflation Rate</span>
+            </div>
+          </div>
+          <div style="background:var(--lavender-100);border-radius:var(--radius-sm);padding:12px 16px;margin-top:10px;font-size:13px;color:var(--lavender-700);border-left:3px solid var(--lavender-400);">
+            <span id="inflationExplainText"></span>
+          </div>
+        </div>
+
+        <!-- All 4 models -->
+        <div class="card" style="margin-top:20px;">
+          <div class="card-title">📊 All 4 Algorithms Comparison</div>
+          <div id="modelCards" class="model-cards-grid"></div>
+        </div>
+
+        <!-- Best algo explanation -->
+        <div class="card best-algo-card" style="margin-top:20px;">
+          <div class="card-title">🥇 Why This Algorithm Is Best</div>
+          <div id="bestAlgoExplain" class="best-algo-text"></div>
+        </div>
+
+        <!-- Action buttons -->
+        <div style="margin-top:20px;display:flex;gap:12px;justify-content:flex-end;flex-wrap:wrap;">
+          <button onclick="window.location.href='report.html'" class="btn btn-primary">📄 Generate Full Report</button>
+          <button onclick="window.location.href='history.html'" class="btn btn-outline">📋 View History</button>
+        </div>
+      </div>
+      <!-- END RESULTS -->
+
+    </div>
+    <!-- END RIGHT PANEL -->
+  </div>
+</div>
+
+<footer><p>🏠 <strong>PriceNest</strong> — Know your home's true worth. © 2024</p></footer>
+
+<!--
+  Script load order — DO NOT reorder:
+  1. utils.js          → shared helpers (formatPrice, showAlert, logout…)
+  2. location_data.js  → LOCATION_DATA hierarchy + AREA_TYPE_INFO
+  3. inflation.js      → fetchInflationRate(), applyInflation(),
+                         onManualInflationInput() — owns all inflation globals
+  4. predict.js        → runPrediction(), displayResults() — reads inflation globals
+  5. location_wizard.js→ cascading wizard UI; bridges to inflation.js via
+                         fetchInflationRateForCode() and patches runPrediction / fetch
+-->
+<script src="../js/utils.js"></script>
+<script src="../js/location_data.js"></script>
+<script src="../js/location_price_index.js"></script>
+<script src="../js/inflation.js"></script>
+<script src="../js/predict.js"></script>
+<script src="../js/location_wizard.js"></script>
+<script>
+// ── House size unit toggle ──────────────────────────────────
+var _sizeUnit = "sqft";
+function toggleSizeUnit(unit) {
+  _sizeUnit = unit;
+  var hint = document.getElementById("houseSizeHint");
+  var inp  = document.getElementById("houseSize");
+  if (unit === "sqm") {
+    hint.textContent = "Enter built-up area in square metres";
+    inp.placeholder  = "e.g. 111";
+  } else {
+    hint.textContent = "Enter built-up area in square feet";
+    inp.placeholder  = "e.g. 1200";
+  }
+}
+// Expose unit globally so predict.js can read it
+window.getSizeInSqft = function() {
+  var val = parseFloat(document.getElementById("houseSize").value) || 0;
+  return _sizeUnit === "sqm" ? Math.round(val * 10.764) : val;
+};
+</script>
+</body>
+</html>

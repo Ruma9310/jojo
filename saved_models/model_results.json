@@ -1,0 +1,47 @@
+{
+  "results": {
+    "Linear Regression": {
+      "r2_score": 91.8,
+      "accuracy": 91.8,
+      "rmse": 100444.06,
+      "mae": 80879.1,
+      "precision": 76.2,
+      "f_score": 76.2
+    },
+    "Decision Tree": {
+      "r2_score": 76.11,
+      "accuracy": 76.11,
+      "rmse": 171439.16,
+      "mae": 134824.07,
+      "precision": 55.0,
+      "f_score": 55.0
+    },
+    "Random Forest": {
+      "r2_score": 88.23,
+      "accuracy": 88.23,
+      "rmse": 120334.71,
+      "mae": 94860.92,
+      "precision": 69.6,
+      "f_score": 69.6
+    },
+    "Gradient Boosting": {
+      "r2_score": 90.27,
+      "accuracy": 90.27,
+      "rmse": 109415.06,
+      "mae": 87383.91,
+      "precision": 73.4,
+      "f_score": 73.4
+    }
+  },
+  "best_model": "Linear Regression",
+  "feature_columns": [
+    "Avg. Area Income",
+    "Avg. Area House Age",
+    "Avg. Area Number of Rooms",
+    "Avg. Area Number of Bedrooms",
+    "Area Population",
+    "House Size (sqft)",
+    "Property Type Encoded"
+  ],
+  "trained_at": "2026-05-07T12:33:02.353322"
+}

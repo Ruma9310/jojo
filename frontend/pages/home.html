@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>PriceNest - Know Your Home's True Worth</title>
+  <link rel="stylesheet" href="../css/style.css"/>
+  <link rel="stylesheet" href="../css/home.css"/>
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav class="navbar">
+  <div class="navbar-brand">
+    <span class="logo-icon">🏠</span>
+    <div>
+      <span class="brand-text">PriceNest</span>
+      <span class="tagline">Know your home's true worth.</span>
+    </div>
+  </div>
+
+  <ul class="nav-links" id="navLinks">
+    <li><a href="home.html" class="active">🏠 Home</a></li>
+    <li><a href="about.html">ℹ️ About</a></li>
+    <li id="navPredict" style="display:none;"><a href="predict.html">🔮 Predict</a></li>
+    <li id="navHistory" style="display:none;"><a href="history.html">📋 History</a></li>
+    <li id="navReport"  style="display:none;"><a href="report.html">📊 Report</a></li>
+    <li id="navAdmin"   style="display:none;"><a href="admin.html">🛡️ Admin</a></li>
+  </ul>
+
+  <div class="nav-user">
+    <!-- Guest buttons (shown by default) -->
+    <div id="navGuest" style="display:flex;gap:8px;">
+      <a href="auth.html" class="btn btn-outline btn-sm">🔑 Sign In</a>
+      <a href="auth.html?tab=signup" class="btn btn-primary btn-sm">✨ Sign Up</a>
+    </div>
+    <!-- Logged-in section (hidden by default) -->
+    <div id="navLoggedIn" style="display:none;align-items:center;gap:10px;">
+      <span id="navUsername" style="font-size:14px;font-weight:500;color:var(--lavender-700);"></span>
+      <button class="profile-icon-btn" onclick="goToProfile()" title="Profile">👤</button>
+      <button class="btn btn-sm btn-outline" onclick="logout()">🚪 Logout</button>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-content">
+    <span class="hero-badge">🏡 Smart Real Estate Predictions</span>
+    <h1>Welcome to <span>PriceNest</span></h1>
+    <p class="hero-tagline">"Know your home's true worth."</p>
+    <p class="hero-desc">
+      Your smart solution for predicting house prices with ease and accuracy.
+      We help you understand real estate values using advanced machine learning models.
+    </p>
+
+    <!-- Guest buttons -->
+    <div class="hero-btns" id="heroBtns" style="display:flex;">
+      <a href="auth.html" class="btn btn-primary btn-lg">🚀 Get Started</a>
+      <a href="about.html" class="btn btn-outline btn-lg">Learn More</a>
+    </div>
+    <!-- Logged-in button -->
+    <div id="heroPredictBtn" style="display:none;">
+      <a href="predict.html" class="btn btn-primary btn-lg">🔮 Predict Now</a>
+    </div>
+  </div>
+
+  <div class="hero-visual">
+    <div class="hero-card-float">
+      <div class="float-item"><span>🤖</span><p>4 ML Algorithms</p></div>
+      <div class="float-item"><span>📊</span><p>Instant Results</p></div>
+      <div class="float-item"><span>🎯</span><p>High Accuracy</p></div>
+      <div class="float-item"><span>📋</span><p>Full Reports</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURES -->
+<section class="section-features">
+  <div class="main-content">
+    <div class="section-title">
+      <h2>📊 Why Choose PriceNest?</h2>
+      <p>Our platform uses multiple machine learning algorithms to deliver accurate predictions.</p>
+    </div>
+    <div class="grid-3">
+      <div class="feature-card"><div class="feature-icon">🤖</div><h3>4 ML Models</h3><p>Uses Linear Regression, Decision Tree, Random Forest, and Gradient Boosting for the best results.</p></div>
+      <div class="feature-card"><div class="feature-icon">⚡</div><h3>Instant Predictions</h3><p>Compare results, analyze data, and get insights about property prices in seconds.</p></div>
+      <div class="feature-card"><div class="feature-icon">👨‍💻</div><h3>Beginner Friendly</h3><p>Simple, fast, and beginner-friendly interface for everyone. No technical knowledge needed.</p></div>
+      <div class="feature-card"><div class="feature-icon">📊</div><h3>Detailed Reports</h3><p>Generate professional reports comparing all models and showing which one performs best.</p></div>
+      <div class="feature-card"><div class="feature-icon">📋</div><h3>Search History</h3><p>Keep track of all your past predictions and revisit them any time.</p></div>
+      <div class="feature-card"><div class="feature-icon">🛡️</div><h3>Admin Panel</h3><p>Admins can monitor all users, active sessions, and search activity in real time.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="section-cta">
+  <div class="cta-content">
+    <h2>🚀 Start Predicting Today!</h2>
+    <p>Start exploring house price predictions today with just a few clicks. Login as a user or admin and experience smart real estate forecasting. Make better property decisions with PriceNest!</p>
+    <!-- Guest CTA -->
+    <div id="ctaBtns" style="display:flex;justify-content:center;gap:14px;flex-wrap:wrap;">
+      <a href="auth.html" class="btn btn-lg" style="background:white;color:var(--lavender-700);">🔑 Login Now</a>
+      <a href="auth.html?tab=signup" class="btn btn-lg btn-outline" style="border-color:white;color:white;">✨ Create Account</a>
+    </div>
+    <!-- Logged-in CTA -->
+    <div id="ctaPredictBtn" style="display:none;">
+      <a href="predict.html" class="btn btn-lg" style="background:white;color:var(--lavender-700);">🔮 Go to Predictions</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p>🏠 <strong>PriceNest</strong> — Know your home's true worth.</p>
+  <p style="margin-top:6px;">© 2024 PriceNest. All rights reserved.</p>
+</footer>
+
+<script src="../js/utils.js"></script>
+<script src="../js/home.js"></script>
+</body>
+</html>

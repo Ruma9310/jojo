@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>PriceNest - Sign In / Sign Up</title>
+  <link rel="stylesheet" href="../css/style.css"/>
+  <link rel="stylesheet" href="../css/auth.css"/>
+  <style>
+    .password-wrap {
+      position: relative;
+    }
+    .password-wrap .form-control {
+      padding-right: 44px;
+    }
+    .eye-btn {
+      position: absolute;
+      right: 12px;
+      top: 50%;
+      transform: translateY(-50%);
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-size: 18px;
+      color: var(--gray-400);
+      padding: 0;
+      line-height: 1;
+      transition: color 0.2s;
+    }
+    .eye-btn:hover { color: var(--lavender-600); }
+  </style>
+</head>
+<body class="auth-body">
+
+<div class="auth-wrapper">
+  <!-- LEFT HERO -->
+  <div class="auth-hero">
+    <div>
+      <div class="brand">🏠 PriceNest</div>
+      <div class="tagline">"Know your home's true worth."</div>
+    </div>
+    <h2>Smart House Price Prediction</h2>
+    <p>Log in to access our powerful machine learning platform and predict real estate prices instantly.</p>
+    <ul class="feature-list">
+      <li><span class="icon">🤖</span> 4 ML Algorithms compared</li>
+      <li><span class="icon">⚡</span> Instant predictions</li>
+      <li><span class="icon">📊</span> Accuracy reports</li>
+      <li><span class="icon">📋</span> Full search history</li>
+    </ul>
+  </div>
+
+  <!-- RIGHT FORM -->
+  <div class="auth-form-panel">
+
+    <!-- Role Selector -->
+    <p style="margin-bottom:10px;font-weight:600;color:var(--lavender-700);font-size:14px;">Choose your role:</p>
+    <div class="role-selector">
+      <button class="role-btn selected" id="roleUserBtn" onclick="selectRole('user', this)">
+        <span class="role-icon">👤</span>
+        <span class="role-label">User</span>
+      </button>
+      <button class="role-btn" id="roleAdminBtn" onclick="selectRole('admin', this)">
+        <span class="role-icon">🛡️</span>
+        <span class="role-label">Admin</span>
+      </button>
+    </div>
+
+    <!-- Tabs -->
+    <div class="auth-tabs">
+      <button class="auth-tab active" id="tabLogin"  onclick="switchTab('login')">🔑 Sign In</button>
+      <button class="auth-tab"        id="tabSignup" onclick="switchTab('signup')">✨ Sign Up</button>
+    </div>
+
+    <!-- Alerts -->
+    <div class="alert alert-error"   id="authAlert"  ><span id="authAlertMsg"></span></div>
+    <div class="alert alert-success" id="authSuccess"><span id="authSuccessMsg"></span></div>
+
+    <!-- ===== LOGIN FORM ===== -->
+    <div id="loginForm">
+      <p class="form-title">Welcome Back!</p>
+      <p class="form-subtitle">Sign in to your PriceNest account</p>
+
+      <div class="form-group">
+        <label>📧 Email Address</label>
+        <input type="email" class="form-control" id="loginEmail" placeholder="your@email.com"/>
+      </div>
+
+      <div class="form-group">
+        <label>🔒 Password</label>
+        <div class="password-wrap">
+          <input type="password" class="form-control" id="loginPassword" placeholder="Enter password"/>
+          <button class="eye-btn" type="button" onclick="togglePassword('loginPassword', this)" title="Show/Hide Password">👁️</button>
+        </div>
+      </div>
+
+      <button class="btn btn-primary" style="width:100%;" onclick="handleLogin()">🔑 Sign In</button>
+      <p style="text-align:center;font-size:13px;color:var(--gray-500);margin-top:14px;">
+        Don't have an account? <a href="#" onclick="switchTab('signup')" style="color:var(--lavender-600);font-weight:600;">Sign Up</a>
+      </p>
+    </div>
+
+    <!-- ===== SIGNUP FORM ===== -->
+    <div id="signupForm" style="display:none;">
+      <p class="form-title">Create Account</p>
+      <p class="form-subtitle">Join PriceNest today</p>
+
+      <div class="form-group">
+        <label>👤 Username</label>
+        <input type="text" class="form-control" id="signupUsername" placeholder="Your name"/>
+      </div>
+
+      <div class="form-group">
+        <label>📧 Email Address</label>
+        <input type="email" class="form-control" id="signupEmail" placeholder="your@email.com"/>
+      </div>
+
+      <div class="form-group">
+        <label>🔒 Password</label>
+        <div class="password-wrap">
+          <input type="password" class="form-control" id="signupPassword" placeholder="Min 6 characters"/>
+          <button class="eye-btn" type="button" onclick="togglePassword('signupPassword', this)" title="Show/Hide Password">👁️</button>
+        </div>
+      </div>
+
+      <button class="btn btn-primary" style="width:100%;" onclick="handleSignup()">✨ Create Account</button>
+      <p style="text-align:center;font-size:13px;color:var(--gray-500);margin-top:14px;">
+        Already have an account? <a href="#" onclick="switchTab('login')" style="color:var(--lavender-600);font-weight:600;">Sign In</a>
+      </p>
+    </div>
+
+    <p style="margin-top:20px;text-align:center;font-size:13px;">
+      <a href="home.html" style="color:var(--gray-400);">← Back to Home</a>
+    </p>
+  </div>
+</div>
+
+<script src="../js/utils.js"></script>
+<script src="../js/auth.js"></script>
+<script>
+  // Show / Hide password toggle
+  function togglePassword(inputId, btn) {
+    var input = document.getElementById(inputId);
+    if (input.type === "password") {
+      input.type = "text";
+      btn.textContent = "🙈";
+      btn.title = "Hide Password";
+    } else {
+      input.type = "password";
+      btn.textContent = "👁️";
+      btn.title = "Show Password";
+    }
+  }
+</script>
+</body>
+</html>

@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>PriceNest - Search History</title>
+  <link rel="stylesheet" href="../css/style.css"/>
+</head>
+<body>
+
+<nav class="navbar">
+  <div class="navbar-brand">
+    <span class="logo-icon">🏠</span>
+    <div><span class="brand-text">PriceNest</span><span class="tagline">Know your home's true worth.</span></div>
+  </div>
+  <ul class="nav-links">
+    <li><a href="home.html">🏠 Home</a></li>
+    <li><a href="about.html">ℹ️ About</a></li>
+    <li><a href="predict.html">🔮 Predict</a></li>
+    <li><a href="history.html" class="active">📋 History</a></li>
+    <li><a href="report.html">📊 Report</a></li>
+    <li id="navAdmin" style="display:none;"><a href="admin.html">🛡️ Admin</a></li>
+  </ul>
+  <div style="display:flex;align-items:center;gap:10px;">
+    <span id="navUsername" style="font-size:14px;font-weight:500;color:var(--lavender-700);"></span>
+    <button class="profile-icon-btn" onclick="goToProfile()">👤</button>
+    <button class="btn btn-sm btn-outline" onclick="logout()">🚪 Logout</button>
+  </div>
+</nav>
+
+<div class="main-content">
+  <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;margin-bottom:2rem;">
+    <div>
+      <h1 style="font-size:28px;font-weight:700;color:var(--lavender-700);">📋 Search History</h1>
+      <p style="color:var(--gray-500);">All your past property price predictions.</p>
+    </div>
+    <button class="btn btn-danger" onclick="clearHistory()">🗑️ Clear All History</button>
+  </div>
+
+  <div class="alert alert-success" id="histAlert" style="margin-bottom:16px;"><span id="histAlertMsg"></span></div>
+
+  <div id="historyLoading" style="text-align:center;padding:3rem;">
+    <div class="spinner"></div>
+    <p style="margin-top:12px;color:var(--lavender-600);">Loading history...</p>
+  </div>
+
+  <div id="historyEmpty" style="display:none;text-align:center;padding:4rem;">
+    <div style="font-size:60px;margin-bottom:16px;">📋</div>
+    <h3 style="color:var(--lavender-700);margin-bottom:8px;">No History Yet</h3>
+    <p style="color:var(--gray-500);">Your predictions will appear here.</p>
+    <a href="predict.html" class="btn btn-primary" style="margin-top:16px;">🔮 Make a Prediction</a>
+  </div>
+
+  <!-- History Cards View -->
+  <div id="historyCards" style="display:none;"></div>
+
+</div>
+
+<footer><p>🏠 <strong>PriceNest</strong> — Know your home's true worth. © 2024</p></footer>
+<script src="../js/utils.js"></script>
+<script src="../js/history.js"></script>
+</body>
+</html>

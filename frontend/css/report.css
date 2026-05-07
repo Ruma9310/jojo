@@ -1,0 +1,147 @@
+/* ============================================================
+   PriceNest - Report Page Styles
+   ============================================================ */
+
+.report-header-card {
+  background: linear-gradient(135deg, var(--lavender-100) 0%, white 100%);
+  border: 1.5px solid var(--lavender-300);
+  border-radius: var(--radius-lg);
+  padding: 24px 28px;
+  margin-bottom: 24px;
+}
+
+/* Accuracy bars */
+.acc-row {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 14px;
+}
+
+.acc-row-label {
+  width: 180px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--lavender-700);
+  flex-shrink: 0;
+}
+
+.acc-row-bar-wrap {
+  flex: 1;
+  height: 24px;
+  background: var(--lavender-100);
+  border-radius: 12px;
+  overflow: hidden;
+  position: relative;
+}
+
+.acc-row-bar {
+  height: 100%;
+  border-radius: 12px;
+  background: linear-gradient(90deg, var(--lavender-400), var(--lavender-600));
+  transition: width 1s ease;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding-right: 8px;
+  font-size: 12px;
+  font-weight: 700;
+  color: white;
+  min-width: 40px;
+}
+
+.acc-row-bar.best-bar {
+  background: linear-gradient(90deg, var(--lavender-500), var(--lavender-dark));
+}
+
+.acc-row-value {
+  width: 60px;
+  text-align: right;
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--lavender-700);
+  flex-shrink: 0;
+}
+
+/* Best Algo Report */
+.best-algo-report {
+  border-left: 5px solid var(--lavender-500);
+  background: var(--lavender-100);
+}
+
+.best-algo-summary {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px;
+  margin-bottom: 16px;
+}
+
+.best-algo-metric {
+  background: white;
+  border-radius: var(--radius-sm);
+  padding: 14px;
+  text-align: center;
+  border: 1px solid var(--lavender-200);
+}
+
+.best-algo-metric .met-value {
+  font-size: 22px;
+  font-weight: 800;
+  color: var(--lavender-600);
+}
+
+.best-algo-metric .met-label {
+  font-size: 12px;
+  color: var(--gray-500);
+  margin-top: 2px;
+}
+
+.best-algo-why {
+  font-size: 14px;
+  color: var(--gray-700);
+  line-height: 1.8;
+  background: white;
+  border-radius: var(--radius-sm);
+  padding: 14px;
+  border: 1px solid var(--lavender-200);
+}
+
+/* Algorithm descriptions */
+.algo-descriptions {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+.algo-desc-card {
+  border: 1.5px solid var(--lavender-200);
+  border-radius: var(--radius);
+  padding: 16px;
+}
+
+.algo-desc-card .algo-name {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--lavender-700);
+  margin-bottom: 6px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.algo-desc-card p {
+  font-size: 13px;
+  color: var(--gray-500);
+  line-height: 1.7;
+}
+
+@media print {
+  .navbar, footer, .btn, .nav-user { display: none !important; }
+  body { background: white; }
+  .card { box-shadow: none; border: 1px solid #ddd; }
+}
+
+@media (max-width: 768px) {
+  .algo-descriptions { grid-template-columns: 1fr; }
+  .best-algo-summary { grid-template-columns: 1fr 1fr; }
+}
